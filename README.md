@@ -10,6 +10,9 @@ Projeto desenvolvido para ser entregue como parte do processo seletivo da empres
 
 - TODO : Realizar a documentação
 
+### Testes de desenvolvimento
+    Para testar o desenvolvimento recomento a utilização do DevContainer dentro do VSCode (arquivo de configuração versionado em ".devcontainer")
+
 ## Descrição do projeto conforme foi passado 
 ### Teste de conhecimento Back-End Python
 Desenvolver uma API REST em Python para classificar automaticamente as avaliações de clientes sobre o serviço/produto/suporte (exemplo em anexo_avaliacoes.csv) de uma empresa em Positiva, Negativa ou Neutra. A API receberá textos de avaliações e retornará a classificação com base em uma análise de sentimento. 
