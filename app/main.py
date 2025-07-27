@@ -4,8 +4,7 @@ from typing import List
 from typing import Annotated
 
 from database.models import Review
-
-from database.con import get_session,
+from database.con import get_session
 from schemas import Review, ReviewCreate
 from domains.reviews import ReviewDomain
 
