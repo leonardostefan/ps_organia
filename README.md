@@ -33,7 +33,7 @@ Projeto desenvolvido para ser entregue como parte do processo seletivo da empres
 ├── **requirements.txt** : *Dependencias Python do projeto*
 ├── **README.md**: *Este documento*
 ├── **anexo_avaliacoes.csv**: *Exemplos de dados para utilização no projeto (retirado da documentação original)*
-└──**Teste_BackEnd_Python.pdf**: Arquivo original enviado pela empresa para o proceso seletivo
+└── **Teste_BackEnd_Python.pdf**: Arquivo original enviado pela empresa para o proceso seletivo
 
 \* O modulo foi simplificado mas o ideal é ser mais separado em projetos grandes
 ## Intruções de execução
@@ -41,11 +41,12 @@ Projeto desenvolvido para ser entregue como parte do processo seletivo da empres
  - Requisitos:
     - Docker, com compose instalado
     - 15Gb de armazenamento livre:
-        Apos o build o projeto ocupa por volta de 12gb por conta do modelo de analise de sentimentos, porém durante o build chega a atingir 15gb;
+      Durante o build, o projeto pode ocupar até 15GB devido à instalação dos modelos de análise de sentimentos. Após o build, o uso estabiliza em cerca de 12GB.
+;
 
   ```shell
   # Executar na raiz do projeto
-  docker compose build; # O Build pode levar bastante tempo devido o modelo de Analise de Sentimentos
+  docker compose build; # O Build pode levar bastante tempo devido o modelo de Análise de Sentimentos
   docker compose up; # Inicialização do sistema
   ```
 
@@ -111,19 +112,19 @@ Desenvolver uma API REST em Python para classificar automaticamente as avaliaç�
 Aqui estão listado as decisões de projeto que foram realizadas ao longo do desenvolvimento.
 
 **Padrões de projeto:**
-  - Bando de dados:
-    - Para simplificar o projeto, foi escolhido **não utilizar uma ferramenta de versionamento de BD**, a criação da base de dados e da tabela fica por conta do script de inicialização executado pelo compose;
+  - Banco de dados:
+    - Para simplificar o projeto, optei por não usar um gerenciador de migrations (como Alembic) para simplificação. O schema é criado automaticamente via script ao subir o container;
     - Para simplificar, ***foi mantido o nome do usuário na mesma tabela da avaliação *(review)**, porém em um sistema complexo o ideal seria normalizar estes dados deixando em tabelas distintas;
-  - Analise de Sentimentos:
+  - Análise de Sentimentos:
     - Como não havia uma amostragem significativa de dados para realizar algum treinamento, **foi utilizado o modelo ja pronto da biblioteca `pysentimiento`, mas o ideal é realizar um retreino** com uma amostra significativa de entradas;
-    - Foi criado a rota `/reviews/eval_model/` a **fim de validar a analise de sentimentos** que esta sendo realizada . No momento ela faz apenas a contagem e listagem de divergencias, mas seria possivel adicionar outras métricas como acuracia, precisão, ou métricas personalisadas.
+    - Foi criado a rota `/reviews/eval_model/` a **fim de validar a analise de sentimentos** que esta sendo realizada . No momento ela faz apenas a contagem e listagem de divergencias, mas seria possivel adicionar outras métricas como acuracia, precisão, ou métricas personalizadas.
   - Code Patter:
     - Em um projeto maior **o ideal seria separar melhor as atribuições de cada modulo**, mas para um MVP mantive uma arquitetura mais enxuta, separando apenas na camada da API (main.py), Dominio de execução (/Domains/) e conexão a base de dados (/database/);
     - Como ainda não estou habituado as melhores praticas frameworks e afins para lidar com o FastAPI (sou acostumado com Django e Flask), preferi manter a simplicidade do projeto não criando muitas abstrações de modulos;
 **Ferramentas:**
   - Para facilidade do testes em qualquer maquina, foi decidido utilizar docker compose para realizar o build do banco de dados e da aplicação;
 **Intepretações dos requisitos**
-  - A definição do método Http `POST /reviews/` no projeto esta muito rasa e ambigua: pela descrição poderia ser um "trigger" para processar todas avaliações pendentes ja registradas no BD, ou insersão via arquivo de avaliações, ou a insesão unica de uma avaliação. Por questão de logica de API foi decidido que seria a inserão de uma unica avaliação. Porém o ideal era resolver com o time/pessoa responsável pela definição do projeto;
+  - A definição do método Http `POST /reviews/` no projeto esta muito rasa e ambigua: pela descrição poderia ser um "trigger" para processar todas avaliações pendentes ja registradas no BD, ou insersão via arquivo de avaliações, ou a inserção unica de uma avaliação. Por questão de logica de API foi decidido que seria a inserão de uma unica avaliação. Porém o ideal era resolver com o time/pessoa responsável pela definição do projeto;
 
 **Implementações**
   - Como demandaria muito tempo implementar os testes de todas funcionalidades, foi implementado apenas na camada de dominio, onde possui mais processamento e se vê mais necessidade de implementação, porém em um projeto normal eu manteria um validador no repositorio (github/azure/gitlab...) que ao menos **garantisse coverage de 85**% de cada arquivo. Também implementaria **testes mutantes com 60%** de cobertura;
