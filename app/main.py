@@ -86,7 +86,7 @@ async def get_report(
     return report
 
 @app.get("/reviews/deep_report/", response_model=dict)
-async def get_report(
+async def get_deep_report(
     start_date: str,
     end_date: str,
     session: SessionDep,
