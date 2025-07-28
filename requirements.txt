@@ -4,3 +4,8 @@ psycopg2
 python-dotenv
 pandas
 pysentimiento
+pytest
+flake8
+black
+
+#Teste
