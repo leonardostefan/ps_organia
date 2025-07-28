@@ -52,10 +52,20 @@ Projeto desenvolvido para ser entregue como parte do processo seletivo da empres
 ### Testes de desenvolvimento
 Para testar o desenvolvimento recomendo a utilização do DevContainer dentro do VSCode (arquivo de configuração versionado em ".devcontainer")
 Antes de abrir o Projeto no Devcontainer é necessário fazer os builds e subir apenas a base de dados:
+
 ```shell
 docker compose build;
 docker compose up organia_db;
 ```
+
+Para realizar os testes unitários utilizasse o seguinte comando:
+```
+coverage run --source=app -m pytest &&
+coverage report
+
+```
+
+
 
 
 ## Descrição do projeto
