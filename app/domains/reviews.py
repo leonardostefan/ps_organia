@@ -1,10 +1,11 @@
-from sqlalchemy.orm import Session
-from fastapi import HTTPException
 from datetime import datetime
-import pandas as pd
-from pysentimiento import create_analyzer
 from typing import List
+
 import database.review as review_crud
+import pandas as pd
+from fastapi import HTTPException
+from pysentimiento import create_analyzer
+from sqlalchemy.orm import Session
 
 
 class ReviewDomain:
@@ -17,7 +18,8 @@ class ReviewDomain:
     ) -> dict:
         """
         Processamento e armazenamento de uma avaliação.
-        Recebe os dados da avaliação, faz a chamada da avaliação de sentimento e realiza a persistencia no banco de dados
+        Recebe os dados da avaliação, faz a chamada da avaliação de sentimento e realiza a
+        persistencia no banco de dados.
 
         Parameters
         ---------
@@ -49,7 +51,7 @@ class ReviewDomain:
         session: Session,
         start_date: str,
         end_date: str,
-    )->List[dict]:
+    ) -> List[dict]:
         """
         Busca de avaliações no range de datas infomado.
         Busca de avaliações no range de datas infomado, se não houver data informada busca desde o inicio e fim das avaliações.
@@ -116,7 +118,8 @@ class ReviewDomain:
     ) -> dict:
         """
         Report do sentimento das avaliações do periodo
-        Busca de avaliações no range de datas infomado e calcula a quantidade distinta de cada avaliação "positiva"/"negativa"/"neutra".
+        Busca de avaliações no range de datas infomado e calcula a quantidade distinta de cada
+        avaliação "positiva"/"negativa"/"neutra".
         Se não houver data informada busca desde o inicio e fim das avaliações.
 
 
@@ -171,8 +174,8 @@ class ReviewDomain:
     async def test_evaluation(self, session) -> dict:
         """
         Metodo para validação do modelo de analise de sentimento.
-        Busca todas avaliações ja feitas e as analise de sentimento registradas no passado e realiza uma nova analise de sentimento. Todos resultados que divergirem serão retornados
-
+        Busca todas avaliações ja feitas e as analise de sentimento registradas no passado e realiza
+        uma nova analise de sentimento. Todos resultados que divergirem serão retornados
 
         Parameters
         ---------
@@ -185,13 +188,14 @@ class ReviewDomain:
             "count":int
                 contagem de itens que divergem
             "diff_list":list
-                Lista com os dicionarios das informações das reviews que deram divergencia no predict novo com o antigo.
+                Lista com os dicionarios das informações das reviews que deram divergencia no
+                predict novo com o antigo.
         """
         query_result = await review_crud.read_by_date_range(
             session, start_date="", end_date=""
         )
 
-        def compare_evaluate(db_review)->dict:
+        def compare_evaluate(db_review) -> dict:
             dict_review: dict = db_review.to_response()
             dict_review.update(
                 {

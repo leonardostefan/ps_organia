@@ -1,11 +1,10 @@
-from sqlalchemy.orm import Session
 from typing import List
-from datetime import date, datetime
+
 from database.models import Review
-import json
+from sqlalchemy.orm import Session
 
 
-def create(db: Session, review_dict:dict):
+def create(db: Session, review_dict: dict):
     db_obj = Review(**review_dict)
     db.add(db_obj)
     db.commit()

@@ -1,13 +1,11 @@
-from fastapi import FastAPI, Query, Depends
-from sqlalchemy.orm import Session
-from typing import List
-from typing import Annotated
+from fastapi import Depends, FastAPI, Query
 from fastapi.responses import RedirectResponse
+from sqlalchemy.orm import Session
+from typing import Annotated, List
 
-from database.models import Review
 from database.con import get_session
-from schemas import Review, ReviewCreate
 from domains.reviews import ReviewDomain
+from schemas import Review, ReviewCreate
 
 app = FastAPI()
 SessionDep = Annotated[Session, Depends(get_session)]
@@ -32,7 +30,6 @@ async def create_review(
     return await domain.create_review(session=session, review=review)
 
 
-### OK -----
 @app.get("/reviews/", response_model=List[Review])
 async def get_reviews(
     session: SessionDep,
@@ -40,7 +37,8 @@ async def get_reviews(
     end_date: str = Query(None),
 ):
     """
-    Retorna uma lista de avaliações analisadas,juntamente com suas respectivas classificações. Permite filtrar os resultados por intervalo de datas, conforme a necessidade.
+    Retorna uma lista de avaliações analisadas,juntamente com suas respectivas classificações. Permite filtrar
+    os resultados por intervalo de datas, conforme a necessidade.
     """
     domain = ReviewDomain()
     reviews = await domain.get_reviews(
@@ -52,7 +50,6 @@ async def get_reviews(
     return reviews
 
 
-### OK -----
 @app.get("/reviews/{id}", response_model=Review)
 async def get_review(
     id: int,
@@ -76,7 +73,8 @@ async def get_report(
     session: SessionDep,
 ):
     """
-    Retorna um relatório das avaliações realizadas em um determinado período, incluindo a contagem das avaliações classificadas como positiva, negativa ou neutra.
+    Retorna um relatório das avaliações realizadas em um determinado período, incluindo a contagem das
+    avaliações classificadas como positiva, negativa ou neutra.
     """
 
     domain = ReviewDomain()
@@ -93,7 +91,8 @@ async def get_test_evaluation(
     session: SessionDep,
 ):
     """
-    Faz uma avaliação global de todos os valores já salvos no banco de dados e compara se o modelo de Analise de sentimentos atual com o que ja foi inferido anteriormente.
+    Faz uma avaliação global de todos os valores já salvos no banco de dados e compara se o modelo de Analise
+    de sentimentos atual com o que ja foi inferido anteriormente.
     """
 
     domain = ReviewDomain()
@@ -103,9 +102,7 @@ async def get_test_evaluation(
     return report
 
 
-### Redirencionamento para swagger:
-
-
+# --- Redirencionamento para swagger:
 @app.get("/", include_in_schema=False)
 def root():
     return RedirectResponse(url="/docs")

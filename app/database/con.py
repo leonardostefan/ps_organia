@@ -1,7 +1,7 @@
+import pandas as pd
+from settings import SQLALCHEMY_DATABASE_URL
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from settings import SQLALCHEMY_DATABASE_URL
-import pandas as pd
 
 # Engine do banco de dados sendo criada
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
@@ -20,19 +20,19 @@ def create_db_and_tables():
     Criação automatica das tabelas caso ainda não existam
     # TODO
     """
-    
+
 
 def initial_populate():
     csv_df = pd.read_csv("/workspaces/ps_organia/anexo_avaliacoes.csv", sep=";")
     {}
-    csv_df=csv_df.astype(
+    csv_df = csv_df.astype(
         {
             "costumer_name": "string",
             "text": "string",
             "sentiment": "string",
         }
     )
-    csv_df["created_at"]=pd.to_datetime(csv_df["created_at"],format="%d/%m/%Y")
+    csv_df["created_at"] = pd.to_datetime(csv_df["created_at"], format="%d/%m/%Y")
     csv_df.to_sql(
         "reviews",
         engine,
