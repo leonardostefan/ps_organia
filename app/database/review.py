@@ -29,4 +29,4 @@ async def read_by_date_range(
 ### OK -----
 async def read_one(db: Session, id: int) -> Review:
     result = db.query(Review).filter(Review.id == id).first()
-    return result.to_response()
+    return result
