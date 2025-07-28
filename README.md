@@ -129,3 +129,4 @@ Aqui estão listado as decisões de projeto que foram realizadas ao longo do des
 **Implementações**
   - Como demandaria muito tempo implementar os testes de todas funcionalidades, foi implementado apenas na camada de dominio, onde possui mais processamento e se vê mais necessidade de implementação, porém em um projeto normal eu manteria um validador no repositorio (github/azure/gitlab...) que ao menos **garantisse coverage de 85**% de cada arquivo. Também implementaria **testes mutantes com 60%** de cobertura;
   - Foi realizado a implementação extra da rota `/reviews/eval_model/` como ja dito anteriormente;
+  - Não houve tempo habil, mas também é uma possibilidade adicionar uma rota que processa as avaliações de um periodo atravéz de uma LLM. Assim retornando um report mais rico. Foi feito um "rascunho" desta opção na rota `/reviews/deep_report/`

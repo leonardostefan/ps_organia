@@ -85,6 +85,25 @@ async def get_report(
     )
     return report
 
+@app.get("/reviews/deep_report/", response_model=dict)
+async def get_report(
+    start_date: str,
+    end_date: str,
+    session: SessionDep,
+):
+    """
+    TODO: Sugestão do que poderia ser adicionado
+    ------
+    Retorna um relatório aprofundado das avaliações realizadas em um determinado
+    período. Além dos mesmos valores já retornado no report anterior, utiliza uma LLM
+    (ex.: gpt/qwen/llama/...) para interpretar todas avaliações e fazer um resumo de
+    todos os pontos positivos e negativos descritos pelos usuários
+    """
+
+    raise NotImplementedError()
+
+
+
 
 @app.get("/reviews/eval_model/", response_model=dict)
 async def get_test_evaluation(
