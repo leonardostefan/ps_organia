@@ -32,7 +32,7 @@ Projeto desenvolvido para ser entregue como parte do processo seletivo da empres
 │&emsp;└── **tests/**: *Scripts de testes unitarios*
 ├── **requirements.txt** : *Dependencias Python do projeto*
 ├── **README.md**: *Este documento*
-├── **anexo_avaliacoes.yml**: *Exemplos de dados para utilização no projeto (retirado da documentação original)*
+├── **anexo_avaliacoes.csv**: *Exemplos de dados para utilização no projeto (retirado da documentação original)*
 └──**Teste_BackEnd_Python.pdf**: Arquivo original enviado pela empresa para o proceso seletivo
 
 \* O modulo foi simplificado mas o ideal é ser mais separado em projetos grandes
@@ -65,8 +65,11 @@ coverage report
 
 ```
 
+Para inserir os dados de exemplo  do *anexo_avaliacoes.csv* na base de dados basta executar o seguinte comando:
 
-
+```shell
+python app/init-db/populate_db.py
+```
 
 ## Descrição do projeto
 Descrição do projeto conforme foi passado pelos avaliadores.
